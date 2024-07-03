@@ -1,23 +1,19 @@
 import express from "express";
-import userRouter from "./user/user.routes";
-
-//enable environment variables
 import "dotenv/config";
+import UserRouter from "./user/user.routes";
+import tripRouter from "./testapi/tripRoute";
+import FlightTicketRouter from "./flightTicket/flightTicket.routes";
+import AirportRouter from "./airport/airport.routes";
 
-//set the port number
 const PORT = process.env.PORT || 5555;
 
-//create express app
 const app = express();
 app.use(express.json());
 
-//default GET route
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-//user routes
-app.use('/api/users', userRouter);
+app.use("/api/users", UserRouter);
+app.use("/api/TripTicket", tripRouter);
+app.use("/api/FlightTicket", FlightTicketRouter);
+app.use("/api/AirportRouter", AirportRouter);
 
 //listen to the defined port
 app.listen(PORT, () => {

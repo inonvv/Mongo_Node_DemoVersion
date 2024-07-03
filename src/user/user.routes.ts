@@ -1,14 +1,18 @@
-import { Router} from "express";
-import { getAllUsers, getUserById, addUser } from "./user.controller";
+import { Router } from "express";
+import {
+  getAllUsers,
+  getUserById,
+  addUser,
+  updateUser,
+  deleteUser,
+} from "./user.controller";
 
-//create router
-const userRouter = Router();
+const UserRouter = Router();
 
-//defined verbs
-userRouter
-  .get('/', getAllUsers)
-  .get('/:id', getUserById)
-  .post('/', addUser)
+UserRouter.get("/getAllUsers", getAllUsers)
+  .get("/getById/:id", getUserById)
+  .post("/createUser", addUser)
+  .put("/updateUser/:id", updateUser)
+  .delete("/deleteUser/:id", deleteUser);
 
-//export
-export default userRouter;
+export default UserRouter;

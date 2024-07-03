@@ -1,23 +1,59 @@
-import { UserType } from "./user.model";
-import { connect } from "mssql";
+import { MongoClient, ObjectId } from "mongodb";
+import { IUser } from "./user.type";
+import DBConnection, { DB_INFO } from "../DB/DBconnction";
 
-/**
- * Saves a user to the database.
- *
- * @param {UserType} user - The user object to save.
- * @param {string} procName - The stored procedure name.
- * @return {Promise<any>} The result of the database operation.
- */
-export async function saveUser(user: UserType, procName: string): Promise<any> {
+// const DB_INFO = {
+//   db: process.env.DB_NAME,
+// };
+const collection = "users";
+
+export async function getUsers(query = {}, projection = {}) {
+  let mongo = await DBConnection.getInstance();
+
   try {
-    const pool = await connect(process.env.CONNECTION_STRING as string);
-    const result = await pool.request()
-      .input("name", user.name)
-      .input("email", user.email)
-      .input("password", user.password)
-      .execute(procName);
+    return await mongo
+      .db(DB_INFO.db)
+      .collection(collection)
+      .find(query, { projection })
+      .toArray();
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function addUser(user: IUser) {
+  let mongo = await DBConnection.getInstance();
+  try {
+    return await mongo.db(DB_INFO.db).collection(collection).insertOne(user);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function EditUser(id: string, user: IUser) {
+  let mongo = await DBConnection.getInstance();
+
+  try {
+    const result = await mongo
+      .db(DB_INFO.db)
+      .collection(collection)
+      .updateOne({ _id: new ObjectId(id) }, { $set: user });
+    //console.log(result);
+
     return result;
   } catch (error) {
-    throw new Error();
+    throw error;
+  }
+}
+
+export async function DeleteUser(id: string) {
+  let mongo = await DBConnection.getInstance();
+  try {
+    return await mongo
+      .db(DB_INFO.db)
+      .collection(collection)
+      .deleteOne({ _id: new ObjectId(id) });
+  } catch (error) {
+    throw error;
   }
 }

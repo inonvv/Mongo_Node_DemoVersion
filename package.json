@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node ./dist/main.js",
     "build": "npx tsc",
-    "dev": "nodemon ./src/main.ts"
+    "dev": "nodemon ./src/main.ts",
+    "start:insertAirports": "npx tsc && node ./dist/scripts/ap/insertAirports.js",
+    "start:insertFlights": "npx tsc && node ./dist/scripts/ap/insertFlights.js",
+    "start:insertHotels": "npx tsc && node ./dist/scripts/hotels/insertHotels.js"
   },
   "keywords": [],
   "author": "",
@@ -20,8 +23,9 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mssql": "^10.0.2"
+    "mongodb": "^6.7.0"
   }
 }
