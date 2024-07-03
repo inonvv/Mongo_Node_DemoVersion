@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { getAll, getById, createUser, update, deleteById } from "./user.model";
 
+export async function testy(req: Request, res: Response) {
+  res.status(200).json({ message: "hello" });
+}
 export async function getAllUsers(req: Request, res: Response) {
   try {
     let users = await getAll();
