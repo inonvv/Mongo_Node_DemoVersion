@@ -3,6 +3,8 @@ import { DeleteUser, EditUser, addUser, getUsers } from "./user.db";
 import { IUser } from "./user.type";
 
 export async function getAll() {
+  console.log("not for public...");
+  
   return await getUsers();
 }
 
