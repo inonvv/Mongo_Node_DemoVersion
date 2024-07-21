@@ -10,7 +10,8 @@ import {
 
 const UserRouter = Router();
 
-UserRouter.get("/getAllUsers", getAllUsers)
+UserRouter
+  .get("/getAllUsers", getAllUsers)
   .get("/getById/:id", getUserById)
   .post("/createUser", addUser)
   .put("/updateUser/:id", updateUser)
