@@ -121,4 +121,148 @@ db.flights.findOne({Departure_Id: "6680418693d21b3eaf26b83a"})
 db.airports.findOne({_Id: "668041b493d21b3eaf26b85b"}) 
 
 
+//display flights with departure_info
+
+db.flights.aggregate([
+  {
+    $lookup: {
+      from: "airports",
+      localField: "Departure_Id",
+      foreignField: "_id",
+      as: "departure_info" 
+    },
+  }])
+
+//display flights with departure_info and arrival info
+
+db.flights.aggregate([
+  {
+    $lookup: {
+      from: "airports",
+      localField: "Departure_Id",
+      foreignField: "_id",
+      as: "departure_info" 
+    },
+  }, 
+  {
+    $lookup: {
+      from: "airports",
+      localField: "Arrival_Id",
+      foreignField: "_id",
+      as: "Arrival_info" 
+	},
+  }
+])
+  
+//----------------------------------------with unwind
+  
+  db.flights.aggregate([
+  {
+    $lookup: {
+      from: "airports",
+      localField: "Departure_Id",
+      foreignField: "_id",
+      as: "departure_info" 
+    },
+  }, 
+  {
+    $lookup: {
+      from: "airports",
+      localField: "Arrival_Id",
+      foreignField: "_id",
+      as: "Arrival_info" 
+	},
+  },
+  {$unwind: "$departure_info"},
+  {$unwind: "$Arrival_info"},
+  {$match:{"departure_info.city":"Prague"}}
+])
+  
+ //display only flights with departure from certain city
+   db.flights.aggregate([
+  {
+    $lookup: {
+      from: "airports",
+      localField: "Departure_Id",
+      foreignField: "_id",
+      as: "departure_info" 
+    },
+  }, 
+  {$unwind: "$departure_info"},
+  {$match:{"departure_info.city":"Prague",}}
+  ])
+  
+  
+   //display only flights with departure from certain city and date
+   db.flights.aggregate([
+  {
+    $lookup: {
+      from: "airports",
+      localField: "Departure_Id",
+      foreignField: "_id",
+      as: "departure_info" 
+    },
+  }, 
+  {$unwind: "$departure_info"},
+  {$match:{"departure_info.city":"Prague","From_Time": {$gte: ISODate("2024-07-02T10:43:32.678Z")}}}
+  ])
+  
+
+//final form 
+//of getting filght from departure airport with certain date 
+// to arrival airport with certain date with projection and sorted
+  
+db.flights.aggregate([
+	{
+		$lookup: {
+			from: "airports",
+			localField: "Departure_Id",
+			foreignField: "_id",
+			as: "departure_info" 
+		},
+	}, 
+	{
+		$lookup: {
+			from: "airports",
+			localField: "Arrival_Id",
+			foreignField: "_id",
+			as: "Arrival_info" 
+		},
+	},
+	{
+		$unwind: "$departure_info"
+	},
+	{
+		$unwind: "$Arrival_info"
+	},
+	{
+		$match:	{
+			"departure_info.city": "Prague",
+			"Arrival_info.city": "Barcelona",
+			"From_Time": {
+				$gte: ISODate("2024-07-02T00:00:00.000Z"),
+				$lte: ISODate("2024-07-05T00:00:00.000Z")
+			}
+		}
+	},
+	{
+		$project: {
+			"departure_info._id": 0,
+			"departure_info.address": 0,
+			"departure_info.icao": 0,
+			"Arrival_info._id": 0,
+			"Arrival_info.address": 0,
+			"Arrival_info.icao": 0
+		}
+	},
+	{
+		$sort: {"From_Time":1}
+	}
+])
+
+
+
+
+
+
 
