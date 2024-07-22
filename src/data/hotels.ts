@@ -1550,9 +1550,9 @@ export const hotels: IHotel[] = [
       full_address: "15 Quai Rauba Capeu, 06300 Nice, France",
       location: { lat: 43.6946, long: 7.2783 },
     },
+    //!DO for paris!
   },
   // Germany
-
   {
     name: "Jumeirah Frankfurt",
     city: "Frankfurt",
@@ -3010,7 +3010,7 @@ export const hotels: IHotel[] = [
   // Luxembourg
   {
     name: "Le Royal Hotels & Resorts Luxembourg",
-    city: "Luxembourg",
+    city: " ",
     country: "Luxembourg",
     address: {
       full_address: "12 Boulevard Royal, 2449 Luxembourg City, Luxembourg",

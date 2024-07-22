@@ -34,8 +34,6 @@ export async function getAirportByIataDB(iata: string) {
   let query = {
     iata: iata,
   };
-  // console.log("DBQ", query);
-
   try {
     return await mongo.db(DB_INFO.db).collection(collection).findOne(query);
   } catch (error) {
