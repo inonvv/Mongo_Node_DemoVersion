@@ -8,8 +8,8 @@ import {
 } from "./airport.controller";
 const AirportRouter = Router();
 
-AirportRouter.get("/", findAllAirport)
-  .get("/getAirPortByCity/:airportCity", getAirPortByCity)
+AirportRouter.get("/findAllAirport", findAllAirport)
+  .get("/getAirPortByCity", getAirPortByCity)
   .post("/login", loginAirport)
   .put("/updateAirport", updateAirport)
   .delete("/deleteAirport", deleteAirport);

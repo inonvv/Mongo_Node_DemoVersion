@@ -5,7 +5,6 @@ import { query } from "express";
 const collection = "airports";
 export async function getAllAirportsDB() {
   let mongo = await DBConnection.getInstance();
-
   try {
     return await mongo.db(DB_INFO.db).collection(collection).find({}).toArray();
   } catch (error) {
@@ -41,4 +40,19 @@ export async function getAirportByIataDB(iata: string) {
   }
 }
 
-export async function getAirportByCityDB() {}
+export async function getAirportByCityDB(city: string,) {
+  let mongo = await DBConnection.getInstance();
+  let query = {
+    city: city,
+  };
+  let projection = { _id: 0, city: 1, country: 1, name: 1, iata: 1 };
+  try {
+    return await mongo
+      .db(DB_INFO.db)
+      .collection(collection)
+      .find(query, {projection})
+      .toArray();
+  } catch (error) {
+    throw error;
+  }
+}

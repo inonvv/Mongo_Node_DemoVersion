@@ -1,10 +1,6 @@
 import { Router } from "express";
 import {
-  deleteFlightTicket,
-  findAllFlightTicket,
-  registerFlightTicket,
-  loginFlightTicket,
-  updateFlightTicket,
+  findAllFlightTicket
 } from "./flightTicket.controller";
 
 const FlightTicketRouter = Router();

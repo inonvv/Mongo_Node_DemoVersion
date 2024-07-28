@@ -1,17 +1,30 @@
 import { Request, Response } from "express";
-import { getAttractionM } from "./attractionRecomendation.model";
+import { getAllAttractionsM, getAttractionByCityM, getAttractionM } from "./attractionRecomendation.model";
 
-export async function findAllAttractionRecomendation(req: Request, res: Response) {
-  res.json([
-    { firstName: "momo", planet: "epsilon" },
-    { firstName: "kuku", planet: "zalter" },
-  ]);
+export async function findAllAttractionRecomendations(req: Request, res: Response){
+  try {
+    let attractions = await getAllAttractionsM();
+    res.status(200).json({ attractions });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 }
 
-export async function findOneAttractionRecomendation(req: Request, res: Response){
+export async function findAttractionRecomendation(req: Request, res: Response) {
   try {
     let attraction = await getAttractionM();
     res.status(200).json({ attraction });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+}
+
+export async function findAttractionsByCity(req: Request, res: Response) {
+  try {
+    let { city } = req.body;
+    let attractions = await getAttractionByCityM(city);
+    console.log("controller", attractions);
+    res.status(200).json({ attractions });
   } catch (error) {
     res.status(500).json({ error });
   }
