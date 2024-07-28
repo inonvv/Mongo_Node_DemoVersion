@@ -19,7 +19,7 @@ app.use(cors());
 app.use("/api/users", UserRouter);
 app.use("/api/TripTicket", tripRouter);
 app.use("/api/FlightTicket", FlightTicketRouter);
-app.use("/api/AirportRouter", AirportRouter);
+app.use("/api/Airports", AirportRouter);
 app.use("/api/Hotels", hotelsRoutes);
 app.use("/api/Attractions", attractionRecomendationRoutes);
 

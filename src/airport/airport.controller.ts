@@ -1,17 +1,23 @@
 import { Request, Response } from "express";
-import { getAirportByCityM } from "./airport.model";
+import { getAirportByCityM, getAllAirportsM } from "./airport.model";
 
-export async function findAllAirport(req: Request, res: Response) {}
+export async function findAllAirport(req: Request, res: Response) {
+  try {
+    let airports = await getAllAirportsM();
+    res.status(200).json({ airports });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
 
-export async function getAirPortByCity(req: Request, res: Request) {
-  //???
-  //!!!!
-  const airport = await getAirportByCityM();
-  //!error try {
-  //   return res.status(200);
-  // } catch (error) {
-  //   res.status(500).json(error);
-  // }
+export async function getAirPortByCity(req: Request, res: Response) {
+  try {
+    let { city } = req.body;
+    let airport = await getAirportByCityM(city);
+    res.status(200).json({ airport });
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 export async function loginAirport(req: Request, res: Request) {}
 export async function updateAirport(req: Request, res: Request) {}

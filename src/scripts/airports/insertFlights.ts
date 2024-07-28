@@ -1,4 +1,4 @@
-import { createAirport, getAllAirports } from "../../airport/airport.model";
+import { createAirport, getAllAirportsM } from "../../airport/airport.model";
 
 import "dotenv/config";
 import { createFlight, createFlights } from "../../flight/flight.model";
@@ -6,7 +6,7 @@ import { createFlight, createFlights } from "../../flight/flight.model";
 export const insertFlights = async (date: Date) => {
   console.log("starting");
 
-  const Aps = await getAllAirports();
+  const Aps = await getAllAirportsM();
   console.log("running", Aps.length * Aps.length, "times");
   let flights = [];
   for (let i = 0; i < Aps.length; i++) {

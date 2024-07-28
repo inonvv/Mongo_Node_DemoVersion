@@ -26,13 +26,13 @@ export async function createAirport(
   return await addAirPort(newAirport);
 }
 
-export async function getAllAirports() {
+export async function getAllAirportsM() {
   return await getAllAirportsDB();
 }
 
 export async function getAirportByIata(iata: string) {
   return await getAirportByIataDB(iata);
 }
-export async function getAirportByCityM() {
-  return await getAirportByCityDB();
+export async function getAirportByCityM(city: string) {
+  return await getAirportByCityDB(city);
 }

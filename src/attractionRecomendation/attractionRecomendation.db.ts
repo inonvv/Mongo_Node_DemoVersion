@@ -16,10 +16,29 @@ export async function createAttractionDB(attraction: IAttraction) {
   }
 }
 
+export async function getAllAttractionsDB(){
+  let mongo = await DBConnection.getInstance();
+  try {
+    return await mongo.db(DB_INFO.db).collection(collection).find({}).toArray();
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function getAttractionDB(){
   let mongo = await DBConnection.getInstance();
   try {
     return await mongo.db(DB_INFO.db).collection(collection).findOne({});
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAttractionsByCityDB(city: string){
+  let mongo = await DBConnection.getInstance();
+  const query = { city: city };
+  try {
+    return await mongo.db(DB_INFO.db).collection(collection).find(query).toArray();
   } catch (error) {
     throw error;
   }
