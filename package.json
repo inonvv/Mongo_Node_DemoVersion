@@ -9,7 +9,8 @@
     "dev": "nodemon ./src/main.ts",
     "start:insertAirports": "npx tsc && node ./dist/scripts/ap/insertAirports.js",
     "start:insertFlights": "npx tsc && node ./dist/scripts/ap/insertFlights.js",
-    "start:insertHotels": "npx tsc && node ./dist/scripts/hotels/insertHotels.js"
+    "start:insertHotels": "npx tsc && node ./dist/scripts/hotels/insertHotels.js",
+    "start:insertAttractions": "npx tsc && node ./dist/scripts/attractions/insertAttractions.js"
   },
   "keywords": [],
   "author": "",
