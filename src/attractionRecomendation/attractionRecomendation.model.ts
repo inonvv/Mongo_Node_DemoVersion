@@ -1,7 +1,7 @@
 import { Address } from "../types/Address";
 import { DateInterval } from "../types/DateInterval";
 import { IAttraction } from "./attaracionRecomendation.type";
-import { createAttractionDB } from "./attractionRecomendation.db";
+import { createAttractionDB, getAttractionDB } from "./attractionRecomendation.db";
 
 export function getAttraction(
   userId: string,
@@ -12,3 +12,5 @@ export function getAttraction(
 export async function addAttraction(attaracionRecomendation: IAttraction) {
   await createAttractionDB(attaracionRecomendation);
 }
+
+export async function getAttractionM() { return await getAttractionDB(); }

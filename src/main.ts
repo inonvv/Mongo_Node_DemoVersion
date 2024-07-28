@@ -8,6 +8,7 @@ import AirportRouter from "./airport/airport.routes";
 import cors from "cors";
 
 import hotelsRoutes from "./hotels/hotels.routes";
+import attractionRecomendationRoutes from "./attractionRecomendation/attractionRecomendation.routes";
 
 const PORT = process.env.PORT || 5555;
 
@@ -20,6 +21,7 @@ app.use("/api/TripTicket", tripRouter);
 app.use("/api/FlightTicket", FlightTicketRouter);
 app.use("/api/AirportRouter", AirportRouter);
 app.use("/api/Hotels", hotelsRoutes);
+app.use("/api/Attractions", attractionRecomendationRoutes);
 
 //listen to the defined port
 app.listen(PORT, () => {
