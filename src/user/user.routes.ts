@@ -12,7 +12,7 @@ const UserRouter = Router();
 
 UserRouter
   .get("/getAllUsers", getAllUsers)
-  .get("/getById/:id", getUserById)
+  .get("/getById", getUserById)
   .post("/createUser", addUser)
   .put("/updateUser/:id", updateUser)
   .delete("/deleteUser/:id", deleteUser)

@@ -21,6 +21,22 @@ export async function getUsers(query = {}, projection = {}) {
   }
 }
 
+export async function getUserByIdDB(id: ObjectId) {
+  let mongo = await DBConnection.getInstance();
+  let query = { _id: new ObjectId(id) };
+  try {
+    let test = await mongo
+      .db(DB_INFO.db)
+      .collection(collection)
+      .findOne(query);
+      console.log("Db test", test);
+      
+    return test;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function addUser(user: IUser) {
   let mongo = await DBConnection.getInstance();
   try {

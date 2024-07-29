@@ -263,6 +263,56 @@ db.flights.aggregate([
 
 
 
+// Flight ticket easy information with a function that gets a flight id (trip segment of flights):
+function getFlightAirports(flightId) {
+  return db.flights.aggregate([
+    {
+      $match: {
+        _id: ObjectId(flightId)
+      }
+    },
+    {
+      $lookup: {
+        from: "airports",
+        localField: "Departure_Id",
+        foreignField: "_id",
+        as: "departureAirport"
+      }
+    },
+    {
+      $lookup: {
+        from: "airports",
+        localField: "Arrival_Id",
+        foreignField: "_id",
+        as: "arrivalAirport"
+      }
+    },
+    {
+      $unwind: "$departureAirport"
+    },
+    {
+      $unwind: "$arrivalAirport"
+    },
+    {
+      $project: {
+        _id: 0,
+        departure: {
+          name: "$departureAirport.name",
+          city: "$departureAirport.city",
+          country: "$departureAirport.country",
+          iata: "$departureAirport.iata"
+        },
+        arrival: {
+          name: "$arrivalAirport.name",
+          city: "$arrivalAirport.city",
+          country: "$arrivalAirport.country",
+          iata: "$arrivalAirport.iata"
+        }
+      }
+    }
+  ]).toArray();
+}
+
 
 
 

@@ -1,19 +1,17 @@
 import { ObjectId } from "mongodb";
-import { DeleteUser, EditUser, addUser, getUsers } from "./user.db";
+import { DeleteUser, EditUser, addUser, getUserByIdDB, getUsers } from "./user.db";
 import { IUser } from "./user.type";
 
 export async function getAll() {
   console.log("not for public...");
-  
   return await getUsers();
 }
 
-export async function getById(id: string) {
-  let query = { _id: new ObjectId(id) };
-  let users = await getUsers();
-
-  // return users[0];
-  return users.find((user) => user._id?.toString() === id);
+export async function getById(id: ObjectId) {
+  let test = await getUserByIdDB(id);
+  console.log("Model", test);
+  return test;
+  // return users.find((user) => user._id?.toString() === id);
 }
 
 export async function createUser(
