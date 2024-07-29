@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { getAll, getById, createUser, update, deleteById } from "./user.model";
+import { ObjectId } from "mongodb";
 
 export async function testy(req: Request, res: Response) {
   res.status(200).json({ message: "hello" });
@@ -15,13 +16,17 @@ export async function getAllUsers(req: Request, res: Response) {
 
 export async function getUserById(req: Request, res: Response) {
   try {
-    let { id } = req.params;
 
+    let { id } = req.body;
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid user ID format" });
+    }
     if (id.length != 24) {
       return res.status(403).json({ message: "id is required" });
     }
 
-    let user = await getById(id);
+    let user = await getById(new ObjectId(id));
+    console.log("controller", user);
 
     if (!user) {
       return res.status(404).json({ message: "user not found" });

@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { IAirPort } from "../airport/airport.type";
 import { DateInterval } from "../types/DateInterval";
-import { addFlightTicketDB, getAllFlightTicketsDB } from "./flightTicket.db";
+import { addFlightTicketDB, getAllFlightTicketsDB, getFlightTicketInfoDB } from "./flightTicket.db";
 import { IFlightTicket } from "./flightTicket.type";
 import { getAirportByIata } from "../airport/airport.model";
 import { getFlightsByDate } from "../flight/flight.db";
@@ -43,4 +43,8 @@ export async function createFlightTicket(
 
 export async function getAllFlightTickets() {
   return await getAllFlightTicketsDB();
+}
+
+export async function getFlightTicketInfoM(flightId: ObjectId) {
+  return await getFlightTicketInfoDB(flightId);
 }
