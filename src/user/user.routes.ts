@@ -6,6 +6,8 @@ import {
   updateUser,
   deleteUser,
   testy,
+  signInUser,
+  signUpUser,
 } from "./user.controller";
 
 const UserRouter = Router();
@@ -13,9 +15,11 @@ const UserRouter = Router();
 UserRouter
   .get("/getAllUsers", getAllUsers)
   .get("/getById", getUserById)
-  .post("/createUser", addUser)
+  // .post("/createUser", addUser)
   .put("/updateUser/:id", updateUser)
-  .delete("/deleteUser/:id", deleteUser)
-  .get("/test", testy);
+  .delete("/deleteUser", deleteUser)
+  .get("/test", testy)
+  .post("/signIn", signInUser)
+  .post("/signUp", signUpUser);
 
 export default UserRouter;

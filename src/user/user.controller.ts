@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getAll, getById, createUser, update, deleteById } from "./user.model";
+import { getAll, getById, createUser, update, deleteByIdM, findUserByEmailAndPasswordM, registerUserM } from "./user.model";
 import { ObjectId } from "mongodb";
 
 export async function testy(req: Request, res: Response) {
@@ -72,15 +72,63 @@ export async function updateUser(req: Request, res: Response) {
 
 export async function deleteUser(req: Request, res: Response) {
   try {
-    let { id } = req.params;
+    const { id } = req.body;
     if (!id) {
       return res.status(403).json({ message: "User ID is required" });
     }
-    let result = await deleteById(id);
-    // if (result.deletedCount === 0) {
-    //   return res.status(404).json({ message: "User not found" });
-    // }
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid user ID format" });
+    }
+    if (id.length !== 24) {
+      return res.status(400).json({ message: "ID must be 24 characters long" });
+    }
+
+    const result = await deleteByIdM(id);
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
     res.status(200).json({ result });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+export async function signInUser(req: Request, res: Response) {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
+    }
+
+    const user = await findUserByEmailAndPasswordM(email, password);
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+export async function signUpUser(req: Request, res: Response) {
+  try {
+    const { firstName, lastName, email, password } = req.body;
+    if (!firstName || !lastName || !email || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const newUser = {
+      firstName,
+      lastName,
+      email,
+      password,
+      role: "user",
+    };
+
+    const result = await registerUserM(newUser);
+    res.status(201).json(result);
   } catch (error) {
     res.status(500).json(error);
   }

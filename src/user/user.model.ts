@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { DeleteUser, EditUser, addUser, getUserByIdDB, getUsers } from "./user.db";
+import { DeleteUserDB, EditUser, addUser, getUserByIdDB, getUsers, findUserByEmailAndPasswordDB, registerUserDB } from "./user.db";
 import { IUser } from "./user.type";
 
 export async function getAll() {
@@ -8,9 +8,7 @@ export async function getAll() {
 }
 
 export async function getById(id: ObjectId) {
-  let test = await getUserByIdDB(id);
-  console.log("Model", test);
-  return test;
+  return await getUserByIdDB(id);
   // return users.find((user) => user._id?.toString() === id);
 }
 
@@ -33,6 +31,14 @@ export async function update(id: string, user: IUser) {
   return await EditUser(id, user);
 }
 
-export async function deleteById(id: string) {
-  return await DeleteUser(id);
+export async function deleteByIdM(id: string) {
+  return await DeleteUserDB(id);
+}
+
+export async function findUserByEmailAndPasswordM(email: string, password: string) {
+  return await findUserByEmailAndPasswordDB(email, password);
+}
+
+export async function registerUserM(user: IUser) {
+  return await registerUserDB(user);
 }
