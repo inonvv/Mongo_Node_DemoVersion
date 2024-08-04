@@ -25,13 +25,10 @@ export async function getUserByIdDB(id: ObjectId) {
   let mongo = await DBConnection.getInstance();
   let query = { _id: new ObjectId(id) };
   try {
-    let test = await mongo
+    return await mongo
       .db(DB_INFO.db)
       .collection(collection)
       .findOne(query);
-      console.log("Db test", test);
-      
-    return test;
   } catch (error) {
     throw error;
   }
@@ -62,13 +59,34 @@ export async function EditUser(id: string, user: IUser) {
   }
 }
 
-export async function DeleteUser(id: string) {
+export async function DeleteUserDB(id: string) {
   let mongo = await DBConnection.getInstance();
   try {
     return await mongo
       .db(DB_INFO.db)
       .collection(collection)
       .deleteOne({ _id: new ObjectId(id) });
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function findUserByEmailAndPasswordDB(email: string, password: string) {
+  let mongo = await DBConnection.getInstance();
+  try {
+    return await mongo
+      .db(DB_INFO.db)
+      .collection(collection)
+      .findOne({ email, password });
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function registerUserDB(user: IUser) {
+  let mongo = await DBConnection.getInstance();
+  try {
+    return await mongo.db(DB_INFO.db).collection(collection).insertOne(user);
   } catch (error) {
     throw error;
   }
