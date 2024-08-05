@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  allAirportsNames,
   deleteAirport,
   findAllAirport,
   getAirPortByCity,
@@ -9,6 +10,7 @@ import {
 const AirportRouter = Router();
 
 AirportRouter.get("/findAllAirport", findAllAirport)
+  .get("/allAirportsName", allAirportsNames)
   .get("/getAirPortByCity", getAirPortByCity)
   .post("/login", loginAirport)
   .put("/updateAirport", updateAirport)

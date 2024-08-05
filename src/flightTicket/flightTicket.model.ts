@@ -1,7 +1,12 @@
 import { ObjectId } from "mongodb";
 import { IAirPort } from "../airport/airport.type";
 import { DateInterval } from "../types/DateInterval";
-import { addFlightTicketDB, getAllFlightTicketsDB, getFlightTicketInfoDB } from "./flightTicket.db";
+import {
+  addFlightTicketDB,
+  getAllFlightTicketsDB,
+  getFlightTicketInfoDB,
+  userUpToDateFlightTicketsDB,
+} from "./flightTicket.db";
 import { IFlightTicket } from "./flightTicket.type";
 import { getAirportByIata } from "../airport/airport.model";
 import { getFlightsByDate } from "../flight/flight.db";
@@ -12,6 +17,7 @@ export async function createFlightTicket(
   arrival: IAirPort,
   dates: DateInterval
 ) {
+  // console.log("createFlightTicket", userId, departure, arrival, dates);
   const departureDate = dates.startDate;
   const departureAirport = await getAirportByIata(departure?.iata);
   const arrivalAirport = await getAirportByIata(arrival.iata);
@@ -47,4 +53,8 @@ export async function getAllFlightTickets() {
 
 export async function getFlightTicketInfoM(flightId: ObjectId) {
   return await getFlightTicketInfoDB(flightId);
+}
+
+export async function userUpToDateFlightTicketsM(userId: ObjectId) {
+  return await userUpToDateFlightTicketsDB(userId);
 }
