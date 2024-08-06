@@ -26,7 +26,7 @@ export async function createAirport(
   return await addAirPort(newAirport);
 }
 
-export async function getAllAirportsM() {
+export async function getAllAirports() {
   return await getAllAirportsDB();
 }
 

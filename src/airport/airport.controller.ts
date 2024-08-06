@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { getAirportByCityM, getAllAirportsM } from "./airport.model";
+import { getAirportByCityM, getAllAirports } from "./airport.model";
 import { IAirPort } from "./airport.type";
 
 export async function findAllAirport(req: Request, res: Response) {
   try {
-    let airports = await getAllAirportsM();
+    let airports = await getAllAirports();
     res.status(200).json({ airports });
   } catch (error) {
     res.status(500).json(error);
@@ -28,7 +28,7 @@ export async function getAirPortByCity(req: Request, res: Response) {
 
 export async function allAirportsNames(req: Request, res: Response) {
   try {
-    let airports: any[] = await getAllAirportsM();
+    let airports: any[] = await getAllAirports();
 
     let formattedAirports: IAirPort[] = airports.map((doc) => ({
       _id: doc._id,
