@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { spawn } from "child_process";
 import { getAll, getById, createUser, update, deleteByIdM, findUserByEmailAndPasswordM, registerUserM } from "./user.model";
 import { ObjectId } from "mongodb";
 
@@ -128,6 +129,17 @@ export async function signUpUser(req: Request, res: Response) {
     };
 
     const result = await registerUserM(newUser);
+
+    // Call the Python script after successful registration
+    const pythonProcess = spawn('python', ['C:/Users/jonat/PycharmProjects/travelAndFlyMail/main.py', email, firstName]);
+    pythonProcess.stdout.on('data', (data) => {
+      console.log(`Python script output: ${data}`);
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+      console.error(`Python script error: ${data}`);
+    });
+
     res.status(201).json(result);
   } catch (error) {
     res.status(500).json(error);
