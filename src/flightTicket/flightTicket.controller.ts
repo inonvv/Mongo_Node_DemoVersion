@@ -65,6 +65,7 @@ export async function registerFlightTicket(req: Request, res: Response) {
       } as IAirPort;
       airportArr.push(IAirPort);
     }
+    airportArr.push(airportArr[0]);
     // transform start date and Days array to DateInterval array
     const dateInt = [] as DateInterval[];
     let tempDate = new Date(startDate);
@@ -79,6 +80,10 @@ export async function registerFlightTicket(req: Request, res: Response) {
       });
       tempDate = endDate2;
     }
+    dateInt.push({
+      startDate: dateInt[dateInt.length - 1].endDate,
+      endDate: dateInt[dateInt.length - 1].endDate,
+    });
     //?loop through one of the array in order to create flight ticket in each iteration
     const flightTickets = [];
     for (let i = 0; i < airportArr.length - 1; i++) {

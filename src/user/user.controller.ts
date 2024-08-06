@@ -1,5 +1,13 @@
 import { Request, Response } from "express";
-import { getAll, getById, createUser, update, deleteByIdM, findUserByEmailAndPasswordM, registerUserM } from "./user.model";
+import {
+  getAll,
+  getById,
+  createUser,
+  update,
+  deleteByIdM,
+  findUserByEmailAndPasswordM,
+  registerUserM,
+} from "./user.model";
 import { ObjectId } from "mongodb";
 
 export async function testy(req: Request, res: Response) {
@@ -16,7 +24,6 @@ export async function getAllUsers(req: Request, res: Response) {
 
 export async function getUserById(req: Request, res: Response) {
   try {
-
     let { id } = req.body;
     if (!ObjectId.isValid(id)) {
       return res.status(400).json({ error: "Invalid user ID format" });
@@ -98,7 +105,9 @@ export async function signInUser(req: Request, res: Response) {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(400).json({ message: "Email and password are required" });
+      return res
+        .status(400)
+        .json({ message: "Email and password are required" });
     }
 
     const user = await findUserByEmailAndPasswordM(email, password);
@@ -113,6 +122,8 @@ export async function signInUser(req: Request, res: Response) {
 }
 
 export async function signUpUser(req: Request, res: Response) {
+  console.log("controller sign up");
+
   try {
     const { firstName, lastName, email, password } = req.body;
     if (!firstName || !lastName || !email || !password) {

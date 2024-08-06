@@ -1,6 +1,19 @@
 import { IAirPort } from "../airport/airport.type";
 
 export const airports: IAirPort[] = [
+  //TLV
+  {
+    address: {
+      full_address: "Ben Gurion Airport, 7015001, Israel",
+      location: { lat: 32.000556, long: 34.870833 },
+    },
+    name: "Ben Gurion International Airport",
+    city: "Tel Aviv",
+    country: "Israel",
+    iata: "TLV",
+    icao: "LLBG",
+  },
+
   // Albania
   {
     address: {
