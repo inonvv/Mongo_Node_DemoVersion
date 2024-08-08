@@ -1,7 +1,7 @@
 import { IAirPort } from "../airport/airport.type";
 
 export const airports: IAirPort[] = [
-  //TLV
+  // Israel
   {
     address: {
       full_address: "Ben Gurion Airport, 7015001, Israel",
@@ -13,7 +13,6 @@ export const airports: IAirPort[] = [
     iata: "TLV",
     icao: "LLBG",
   },
-
   // Albania
   {
     address: {

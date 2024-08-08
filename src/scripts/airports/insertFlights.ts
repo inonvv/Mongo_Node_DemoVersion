@@ -1,4 +1,5 @@
-import { createAirport, getAllAirports } from "../../airport/airport.model";
+import { createAirport, getAllAirports as getAllAirports } from "../../airport/airport.model";
+import "dotenv/config";
 import { createFlight, createFlights } from "../../flight/flight.model";
 import "dotenv/config";
 
