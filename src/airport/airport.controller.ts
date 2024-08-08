@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { getAirportByCityM, getAllAirportsM } from "./airport.model";
+import { getAirportByCityM, getAllAirports } from "./airport.model";
 
 export async function findAllAirport(req: Request, res: Response) {
   try {
-    let airports = await getAllAirportsM();
+    let airports = await getAllAirports();
     res.status(200).json({ airports });
   } catch (error) {
     res.status(500).json(error);
