@@ -40,7 +40,7 @@ export async function getAirportByIataDB(iata: string) {
   }
 }
 
-export async function getAirportByCityDB(city: string,) {
+export async function getAirportByCityDB(city: string) {
   let mongo = await DBConnection.getInstance();
   let query = {
     city: city,
@@ -50,7 +50,7 @@ export async function getAirportByCityDB(city: string,) {
     return await mongo
       .db(DB_INFO.db)
       .collection(collection)
-      .find(query, {projection})
+      .find(query)
       .toArray();
   } catch (error) {
     throw error;

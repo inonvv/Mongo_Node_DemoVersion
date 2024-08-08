@@ -1,7 +1,7 @@
 import { createAirport, getAllAirports as getAllAirports } from "../../airport/airport.model";
-
 import "dotenv/config";
 import { createFlight, createFlights } from "../../flight/flight.model";
+import "dotenv/config";
 
 export const insertFlights = async (date: Date) => {
   console.log("starting");
